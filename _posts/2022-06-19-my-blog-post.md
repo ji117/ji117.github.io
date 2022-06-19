@@ -210,3 +210,61 @@ void ObjectManager::CheckCollisions()
 	}
 }
 ```
+Code of function to load sounds
+```
+void SoundFX::LoadSounds()
+{
+    //get the pointer to the sound engine
+    MySoundEngine* pSoundEngine = MySoundEngine::GetInstance();
+
+    //load the explosions sounds
+    for (int i = 0; i < NUMEXPLOSIONSOUNDS; i++)
+    {
+        //if sounds are currently loaded, no need to load them again
+        if (m_Explosions[i] == 0)
+        {
+            switch (i % 5)		//only 5 wave sounds
+            {
+            case 0:
+                m_Explosions[i] = pSoundEngine->LoadWav(L"explosion1.wav");
+                break;
+            case 1:
+                m_Explosions[i] = pSoundEngine->LoadWav(L"explosion2.wav");
+                break;
+            case 2:
+                m_Explosions[i] = pSoundEngine->LoadWav(L"explosion3.wav");
+                break;
+            case 3:
+                m_Explosions[i] = pSoundEngine->LoadWav(L"explosion4.wav");
+                break;
+            case 4:
+                m_Explosions[i] = pSoundEngine->LoadWav(L"explosion5.wav");
+                break;
+            }
+        }
+    }
+    //load the thrust sound, as long as not already loaded
+    if (m_Thrust == 0)
+    {
+        m_Thrust = pSoundEngine->LoadWav(L"thrustloop2.wav");
+    }
+    for (int i = 0; i < numOfShots; i++)
+    {
+        m_Shot[i] = pSoundEngine->LoadWav(L"shot2.wav");
+        m_EnemyShot[i] = pSoundEngine->LoadWav(L"shoot.wav");
+    }
+}
+```
+Code of function to play a explosion sound  
+```
+void SoundFX::PlayExplosion()
+{
+    //play the sound
+    MySoundEngine::GetInstance()->SetFrequency(m_Explosions[m_NextExplosion], 16000);
+    MySoundEngine::GetInstance()->SetVolume(m_Explosions[m_NextExplosion], 0);
+    MySoundEngine::GetInstance()->Play(m_Explosions[m_NextExplosion]);
+    m_NextExplosion += rand() % 3;			//stops it sounding too repetitive
+    if (m_NextExplosion >= NUMEXPLOSIONSOUNDS)
+        m_NextExplosion = 0;
+}
+```
