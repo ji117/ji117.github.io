@@ -135,3 +135,78 @@ void SpaceShip::Update(double framerate)
 	}
 }
 ```
+Update function for jet flame animation behind the player's ship  
+```
+void Jet::Update(double framerate)
+{
+	if (pShipJ->IsAlive())
+	{
+		if (transparency >= 0)
+		{
+			transparency = transparency - 0.05f;
+		}
+
+		if (jetFire >= 1 && jetFire < 2)
+		{
+			LoadImage(L"fire1.bmp");
+		}
+
+		if (jetFire >= 2 && jetFire < 3)
+		{
+			LoadImage(L"fire2.bmp");
+		}
+
+		if (jetFire >= 3 && jetFire < 4)
+		{
+			LoadImage(L"fire3.bmp");
+		}
+
+		if (jetFire >= 4 && jetFire < 5)
+		{
+			LoadImage(L"fire4.bmp");
+		}
+
+		if (jetFire >= 5 && jetFire < 6)
+		{
+			LoadImage(L"fire5.bmp");
+		}
+
+		if (jetFire >= 6 && jetFire < 7)
+		{
+			LoadImage(L"fire6.bmp");
+		}
+
+
+		if (jetFire >= 7)
+		{
+			jetFire = 1; // reset animation
+		}
+
+
+		jetFire = jetFire + animationSpeed * framerate;
+		if (pShipJ)
+		{
+			position = pShipJ->GetPosition() + flamePosition;
+		}
+	}
+```
+Code used to check for collisions  
+```
+void ObjectManager::CheckCollisions()
+{
+	std::list<GameObject*>::iterator it1; 
+	std::list<GameObject*>::iterator it2;
+
+	for (it1 = pObjectList.begin(); it1 != pObjectList.end(); it1++)
+	{
+		for (it2 = next(it1); it2 != pObjectList.end(); it2++)
+		{
+			if ((*it1) && (*it2) && (*it1)->GetActive() && (*it2)->GetActive() && (*it1)->GetShape().Intersects((*it2)->GetShape()))
+			{
+				(*it1)->ProcessCollision(**it2);
+				(*it2)->ProcessCollision(**it1); 
+			}
+		}
+	}
+}
+```
