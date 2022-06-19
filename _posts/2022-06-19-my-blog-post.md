@@ -31,7 +31,19 @@ Added a level manager to control the levels in the game
 
 Below are code snippets from the game.  
 
+Gameobject super class
+
 ``` 
+GameObject::GameObject()
+{
+	image = -1;
+	angle = 0;
+	size = 1.0f; 
+	position.set(0, 0);
+	transparency = 0;
+	active = false; 
+}
+
 GameObject::~GameObject()
 {
 }
@@ -56,5 +68,70 @@ void GameObject::Deactivate()
 	active = false; 
 } 
 ```
+Update function for player's ship  
 
+```
+void SpaceShip::Update(double framerate)
+{
+	startTimer = startTimer - framerate; //this is the player's respawn timer
+	if (startTimer <= 0)
+	{
+		if (transparency >= 0) //this code makes the player fade in when they respawn
+		{
+			transparency = transparency - 0.05f;
+		}
 
+		MyInputs* pInputs = MyInputs::GetInstance();
+
+		if (pInputs->KeyPressed(DIK_D))
+		{
+			Vector2D acceleration(speed, 0);
+			velocity = velocity + acceleration * framerate;
+		}
+
+		if (pInputs->KeyPressed(DIK_A))
+		{
+			Vector2D acceleration(-speed, 0);
+			velocity = velocity + acceleration * framerate;
+		}
+		velocity = velocity - velocity * 1.8 * framerate;
+		position = position + velocity * framerate; //needs to be outside the if statement in order for the object to carry on moving after the key has been let go
+
+		shootDelay = shootDelay - framerate;
+
+		if (pInputs->KeyPressed(DIK_SPACE) && shootDelay <= 0) //code that allows the player to shoot 
+		{
+			shootDelay = 0.15f;
+
+			Bullet* pBullet = new Bullet();
+			pBullet->Intialise(position, angle);
+			Game::instance.GetObjectManager().AddObject(pBullet);
+			Game::instance.GetSoundFX().PlayShot();
+		}
+
+		//code that prevents the player's ship from going to far to the left or right
+		if (position.XValue > 1300)
+		{
+			position.XValue = 1300;
+		}
+
+		if (position.XValue < -1300)
+		{
+			position.XValue = -1300;
+		}
+
+		collisionShape.PlaceAt(position, 40); // this places the player's ship hitbox on the player
+
+		if (health <= 0)
+		{
+			PlayerDead();
+			health = 100;
+
+			if (playerLives <= 0)
+			{
+				Deactivate(); //destroys player object when lives run out
+			}
+		}
+	}
+}
+```
