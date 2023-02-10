@@ -5,7 +5,5 @@ This demonstrates me applying what I learnt during the four weeks of the module.
 
 https://youtu.be/XjpsnMKtozs
 
-[![Video of graphics project]
-(https://img.youtube.com/vi/XjpsnMKtozs/maxresdefault.jpg)]
-(https://www.youtube.com/watch?v=XjpsnMKtozs)
+
 
