@@ -3,7 +3,7 @@
 Here is a game that I made using a simple game engine that was provided to me which could only draw and play sounds.
 I had to add additional functionality to the game engine in order to produce the game shown below. The game was programmed using C++.
 
-https://youtu.be/etCOzgITqs0
+{% include youtube.html id="etCOzgITqs0" %}
 
 This video shows gameplay of the game.  
 
