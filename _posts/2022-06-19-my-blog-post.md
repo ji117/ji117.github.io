@@ -322,10 +322,10 @@ Level Manager Code
 					{
 						level++;
 						NextLevel();
+					}
 				}
 			}
 		}
-	}
 
 	if (enemyNumber <= 0 && level == finalLevel)
 	{
