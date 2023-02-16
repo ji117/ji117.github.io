@@ -263,3 +263,90 @@ void SoundFX::PlayExplosion()
         m_NextExplosion = 0;
 }
 ```
+Level Manager Code
+...
+
+void LevelManager::NextLevel()
+{
+	endLevelTimer = 3.0;
+	levelBreakTimer = 3.0;
+	gameTimer = 0;
+
+	if (pSpaceShip->GetPlayerLives() < 3)
+	{
+		pSpaceShip->SetPlayerLives(pSpaceShip->GetPlayerLives() + 1);
+	}
+
+	//spawns enemies at the start of the level and sets how many enemies need to be killed before going to the next level
+	if (level == 1)
+	{
+		Enemy* pEnemy = new Enemy();
+		pEnemy->Intialise(Vector2D(200.0f, 700.0f));
+		Game::instance.GetObjectManager().AddObject(pEnemy);
+			
+		enemyNumber = 5;
+	}
+	
+	void LevelManager::EndLevel()
+{
+	//display level complete text
+	MyDrawEngine* pDraw = MyDrawEngine::GetInstance();
+	pDraw->WriteText(1100, 640, L"Level Complete", MyDrawEngine::WHITE, font);
+}
+
+void LevelManager::GameOver()
+{
+	//display game over screen when player has zero lives left 
+	MyDrawEngine* pDraw = MyDrawEngine::GetInstance();
+	pDraw->WriteText(1100, 640, L"Game Over", MyDrawEngine::RED, font);
+}
+
+void LevelManager::EndGame()
+{
+	MyDrawEngine* pDraw = MyDrawEngine::GetInstance();
+	pDraw->WriteText(1100, 640, L"Game Complete!", MyDrawEngine::WHITE, font);
+}
+
+void LevelManager::Update(double framerate)
+{
+	if (gameComplete == false)
+	{
+		if (enemyNumber <= 0)
+		{
+			endLevelTimer = endLevelTimer - framerate;
+			if (endLevelTimer <= 0)
+			{
+				EndLevel();
+				levelBreakTimer = levelBreakTimer - framerate;
+				if (levelBreakTimer < 0)
+				{
+					level++;
+					NextLevel();
+				}
+			}
+		}
+	}
+
+	if (enemyNumber <= 0 && level == finalLevel)
+	{
+		EndGame(); 
+		gameComplete = true; 
+	}
+
+	if (pSpaceShip->GetPlayerLives() <= 0)
+	{
+		GameOver(); 
+	}
+	
+	//spawns enemies in middle of level
+	if (level == 1)
+	{
+		if (gameTimer == 100)
+		{
+			//2
+			Enemy* pEnemy = new Enemy();
+			pEnemy->Intialise(Vector2D(100.0f, 500.0f));
+			Game::instance.GetObjectManager().AddObject(pEnemy);
+		}
+
+...
