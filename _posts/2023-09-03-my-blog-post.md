@@ -5,5 +5,5 @@ Below is a video showing what I did for this project and a link to the git repo 
 
 {% include youtube.html id="0cmIOWkhLh0" %}
 
-<a href ="https://github.com/ji117/VRComputingCollection"></a>
+<a href ="https://github.com/ji117/VRComputingCollection">Git repo</a>
 
