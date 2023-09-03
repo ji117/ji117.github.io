@@ -5,3 +5,5 @@ Below is a video showing what I did for this project and a link to the git repo 
 
 {% include youtube.html id="0cmIOWkhLh0" %}
 
+https://github.com/ji117/VRComputingCollection
+
