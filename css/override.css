@@ -3,6 +3,10 @@ hr {
   margin-bottom: 20px;
 }
 
+a {
+  font-weight: bold;
+}
+
 /* Post navigation links */
 .post_navi {
   display: flex;
@@ -31,6 +35,7 @@ hr {
 .post_navi .nav_prev .post_navi-arrow {
   left: 0;
 }
+
 
 .post_navi .nav_next .post_navi-arrow {
   right: 0;
