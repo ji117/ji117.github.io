@@ -10,10 +10,10 @@ Below are code snippets from the project
 Loading textures including bump maps and cube map
 ```
   rock1Texture = SOIL_load_OGL_texture(TEXTUREDIR"Rock_04_DIFF.png", SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_MIPMAPS);
-	rock2Texture = SOIL_load_OGL_texture(TEXTUREDIR"Rock_01_DIFF.png", SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_MIPMAPS);
-	grassTexture = SOIL_load_OGL_texture(TEXTUREDIR"grass.png", SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_MIPMAPS);
-	bumpMap = SOIL_load_OGL_texture(TEXTUREDIR"Rock_04_NRM.png", SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_MIPMAPS);
-	cubeMap = SOIL_load_OGL_cubemap(TEXTUREDIR"xpos.png", TEXTUREDIR"xneg.png", TEXTUREDIR"ypos.png", TEXTUREDIR"yneg.png", TEXTUREDIR"zpos.png", TEXTUREDIR"zneg.png", SOIL_LOAD_RGB,     
+  rock2Texture = SOIL_load_OGL_texture(TEXTUREDIR"Rock_01_DIFF.png", SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_MIPMAPS);
+  grassTexture = SOIL_load_OGL_texture(TEXTUREDIR"grass.png", SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_MIPMAPS);
+  bumpMap = SOIL_load_OGL_texture(TEXTUREDIR"Rock_04_NRM.png", SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_MIPMAPS);
+  cubeMap = SOIL_load_OGL_cubemap(TEXTUREDIR"xpos.png", TEXTUREDIR"xneg.png", TEXTUREDIR"ypos.png", TEXTUREDIR"yneg.png", TEXTUREDIR"zpos.png", TEXTUREDIR"zneg.png", SOIL_LOAD_RGB,     
   SOIL_CREATE_NEW_ID, 0);
 ```
 Fragment shader used for height map
@@ -195,35 +195,35 @@ Setting height map size, loading in meshes (Sphere mesh was used to make clouds)
 ```
   heightMapSize = heightMap->GetHeightmapSize() + Vector3(0.0f, -100.0f, 0.0f);
 
-	sphere = Mesh::LoadFromMeshFile("Sphere.msh");
-	tree = Mesh::LoadFromMeshFile("Oak_Tree.msh");
+   sphere = Mesh::LoadFromMeshFile("Sphere.msh");
+   tree = Mesh::LoadFromMeshFile("Oak_Tree.msh");
 	
-	root = new SceneNode();
-	root->SetTransform(Matrix4::Translation(Vector3(heightMapSize.x/2, 0, heightMapSize.z/2)));
+   root = new SceneNode();
+   root->SetTransform(Matrix4::Translation(Vector3(heightMapSize.x/2, 0, heightMapSize.z/2)));
 ```
 Adding a tree to the scene
 ```
   treeNode = new SceneNode(tree, Vector4(1, 1, 1, 1));
-	treeNode->SetTexture(treeTexture);
-	treeNode->SetTransform(Matrix4::Translation(Vector3(-150, 50, -200)));
-	treeNode->SetModelScale(Vector3(20, 20, 20));
-	root->AddChild(treeNode);
+  treeNode->SetTexture(treeTexture);
+  treeNode->SetTransform(Matrix4::Translation(Vector3(-150, 50, -200)));
+  treeNode->SetModelScale(Vector3(20, 20, 20));
+  root->AddChild(treeNode);
 ```
 Code to update the scene
 ```
   camera->UpdateCamera(dt);
-	viewMatrix = camera->BuildViewMatrix();
-	frameFrustum.FromMatrix(projMatrix * viewMatrix);
+  viewMatrix = camera->BuildViewMatrix();
+  frameFrustum.FromMatrix(projMatrix * viewMatrix);
 
-	waterRotate += dt * 2.0f;
-	waterCycle += dt * 0.25f;
+  waterRotate += dt * 2.0f;
+  waterCycle += dt * 0.25f;
 
-	frameTime -= dt;
-	while (frameTime < 0.0f)
-	{
-		currentFrame = (currentFrame + 1) % anim->GetFrameCount();
-		frameTime += 1.0f / anim->GetFrameRate();
-	}
-	root->Update(dt);
+  frameTime -= dt;
+  while (frameTime < 0.0f)
+  {
+      currentFrame = (currentFrame + 1) % anim->GetFrameCount();
+      frameTime += 1.0f / anim->GetFrameRate();
+  }
+  root->Update(dt);
 ```
 
