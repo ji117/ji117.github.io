@@ -7,4 +7,4 @@ Below is a video of the presentation of the work I did during the skills bootcam
 
 Below are screenshots of the blueprints I created
 
-![blueprint screenshot](images/i27_1.png)
+![blueprint screenshot](/images/i27_1.png)
