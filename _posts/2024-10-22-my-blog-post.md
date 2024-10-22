@@ -9,6 +9,7 @@ Below is the game's trailer (note the trailer was not created by me)
 
 {% include youtube.html id="GNDAZwnszO4" %}
 
+
 Springboard also allowed me to do a bit of freelance work since I got the chance to help other teams on the program with their games. 
 One of these games was called Data Breach which you can see <a href="https://teamc.itch.io/data-breach">here</a>. I made some minor adjustments to the enemy AI where to move away from the player when spotted as they wanted it to try and sneak up to the player before attacking and made it so that the enemy could do damage to the player. I also implemented the logic for the win/lose condition of the game. 
 The other game that I worked on was called Acorn Rumble which can be seen <a href="https://jasonts.itch.io/acorn-rumble">here</a>. I helped out with sorting out the player controller since there were issues with getting it to behave as intended which I did by changing it from using Unity's old input system to the new input system. I added a timer for the turn system. Added a screen shake feature and made a way for the screen shake to be consistent between the four cameras used in the game. Also added logic of when to call the functions related to the game's cheating mechanics. Added a player-select screen and helped with the identification and fixing of bugs.   
